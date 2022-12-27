@@ -1,17 +1,23 @@
-let modal_main = document.querySelector('#modal_main');
-let modal__close = document.querySelectorAll('div.modal__close');
-let show_success = document.querySelector('.show-success');
-let modal_success = document.querySelector('#modal_success');
-modal_main.className = 'modal modal_active';
+let popupsArray = Array.from(document.querySelectorAll('div.modal__close_times'))
 
-modal__close[0].onclick = function () {
-	modal_main.className = 'modal'
-}
-show_success.onclick = function () {
-	modal_main.className = 'modal'
-	modal_success.className = 'modal modal_active';
-}
-modal__close[1].onclick = function () {
-	modal_success.className = 'modal';
-	modal_main.className = 'modal';
-}
+// popup close function
+closePopup();
+
+function closePopup() {
+    popupsArray.forEach(function (modal) {
+        modal.onclick = function () {
+            modal.closest('div.modal').classList.remove('modal_active');
+        };
+    });
+};
+
+// start with modal_main popup
+let modalMain = document.getElementById('modal_main')
+let modalSuccess = document.getElementById('modal_success')
+modalMain.classList.add('modal_active');
+
+// open modal_success with button
+document.querySelector('div.modal a.btn_danger').onclick = function () {
+    modalMain.classList.remove('modal_active');
+    modalSuccess.classList.add('modal_active');
+};

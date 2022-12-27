@@ -1,16 +1,14 @@
-const links = Array.from(document.querySelectorAll('.menu__link'));
+let menuListSub = Array.from(document.getElementsByClassName('menu__link'));
 
-for (let link of links) {
-	link.onclick = function () {
-		const parent = link.parentElement;
-		if (parent.querySelector('.menu_sub').className === 'menu menu_sub') {
-			parent.querySelector('.menu_sub').className = 'menu menu_sub menu_active';
-		} else {
-			parent.querySelector('.menu_sub').className = 'menu menu_sub'
-		}
+for (let i = 0; i < menuListSub.length; i++) {
+    if (menuListSub[i].closest('li').querySelector('ul')) {
+        let element = menuListSub[i].closest('li').querySelector('a');
+        element.addEventListener('click', showSubMenu);
+    }
+}
 
-		if (link.closest('.menu_main')) {
-			return false
-		}
-	}
+function showSubMenu(elem) {
+    elem.preventDefault();
+    console.log(this.closest('li').querySelector('ul'));
+    this.closest('li').querySelector('ul').classList.toggle("menu_active");
 }
